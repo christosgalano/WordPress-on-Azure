@@ -36,7 +36,7 @@ az acr repository list -n $cr_name
 
 * Go to the Azure Load Testing resource that was created
 
-* On the **Upload a JMeter script** click on **Create**
+* On the **Upload a JMeter script** option, click **Create**
 
 * For the **Test Plan** provide the **tests/load_test_wordpress.jmx**
 
