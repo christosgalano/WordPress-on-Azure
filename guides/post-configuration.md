@@ -24,11 +24,11 @@ az acr import -n $cr_name --source docker.io/library/wordpress:latest --image wo
 az acr repository list -n $cr_name
 ```
 
-## Active the Application Insights plugin
+## Activate the Application Insights plug-in
 
 * Login to WordPress
 
-* Go to Plugins and activate the **Application Insights** plugin
+* Go to Plugins and activate the **Application Insights** plug-in
 
 * Go to **Settings -> Application Insights** and set the Instrumentation Key
 
@@ -38,6 +38,6 @@ az acr repository list -n $cr_name
 
 * On the **Upload a JMeter script** click on **Create**
 
-* For the **Test Plan** provide the **tests/lt_wordpress.jmx**
+* For the **Test Plan** provide the **tests/load_test_wordpress.jmx**
 
 * In the **Monitoring** tab click **Add/Modify** and select the Application Insights resource that is connected to the Webapp
