@@ -1,0 +1,118 @@
+name: WoA-deploy-infra
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_name:
+        description: "Define deployment name"
+        required: true
+
+# Allow the action to get the required token
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+  DEPLOYMENT_NAME: ${{ github.event.inputs.deployment_name }}
+  SETUP_SCRIPT: ${{ github.workspace }}/Wordpress-on-Azure/scripts/setup_jumpbox.tpl
+
+jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Set Subscription
+        uses: Azure/cli@v1
+        with:
+          inlineScript: az account set --subscription $SUBSCRIPTION_ID
+
+      - name: Lint Code
+        working-directory: ${{ github.workspace }}/Wordpress-on-Azure/bicep
+        run: az bicep build --file main.bicep
+
+  validate:
+    name: Validate Template
+    needs: lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Set Subscription
+        uses: Azure/cli@v1
+        with:
+          inlineScript: az account set --subscription $SUBSCRIPTION_ID
+
+      - name: Validate template
+        working-directory: ${{ github.workspace }}/Wordpress-on-Azure/bicep
+        run: |
+          az deployment sub validate \
+            --name "$DEPLOYMENT_NAME" \
+            --location westeurope \
+            --template-file main.bicep \
+            --parameters "main.parameters.json" \
+                          subscription_id="$SUBSCRIPTION_ID" \
+                          mysql_admin_password="$ADMIN_PASSWORD" \
+                          jumpbox_admin_password="$ADMIN_PASSWORD" \
+                          github_runner_object_id="${{ secrets.AZURE_CLIENT_ID }}"
+
+  deploy:
+    name: Deploy Infrastructure
+    needs: validate
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Set Subscription
+        uses: Azure/cli@v1
+        with:
+          inlineScript: az account set --subscription $SUBSCRIPTION_ID
+
+      - name: Deploy template
+        working-directory: ${{ github.workspace }}/Wordpress-on-Azure/bicep
+        run: |
+          az deployment sub create \
+            --name "$DEPLOYMENT_NAME" \
+            --location westeurope \
+            --template-file main.bicep \
+            --parameters "main.parameters.json" \
+                          subscription_id="$SUBSCRIPTION_ID" \
+                          mysql_admin_password="$ADMIN_PASSWORD" \
+                          jumpbox_admin_password="$ADMIN_PASSWORD" \
+                          github_runner_object_id="${{ secrets.AZURE_CLIENT_ID }}"

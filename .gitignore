@@ -1,0 +1,9 @@
+# Local .vscode directories
+**/.vscode/*
+
+# Bicep config
+**/bicepconfig.json
+
+# Files
+ideas.md
+to-do.md

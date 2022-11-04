@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "project_id": {
+            "value": "woa"
+        },
+        "location": {
+            "value": "West Europe"
+        },
+        "jumpbox_admin_username": {
+            "value": "azureuser"
+        },
+        "mysql_admin_username": {
+            "value": "mysqladmin"
+        }
+    }
+}
