@@ -40,4 +40,8 @@ az acr repository list -n $cr_name
 
 * For the **Test Plan** provide the **tests/load_test_wordpress.jmx**
 
-* In the **Monitoring** tab click **Add/Modify** and select the Application Insights resource that is connected to the Webapp
+* In the **Monitoring** tab click **Add/Modify** and select the Application Insights resource that is connected to the WebApp
+
+* On all the other tabs, provide the desired values
+
+* Create and run the load test
