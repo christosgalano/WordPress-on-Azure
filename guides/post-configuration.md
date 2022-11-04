@@ -1,4 +1,4 @@
-# Post-Configuration Steps
+# Post-Configuration Steps (also available in Wiki)
 
 ## Download database certificate in Kudo environment
 
