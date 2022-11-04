@@ -26,7 +26,7 @@ az acr repository list -n $cr_name
 
 ## Activate the Application Insights plug-in
 
-* Login to WordPress
+* Login to WordPress at <https://{{app-service-name}}.azurewebsites.net/login>
 
 * Go to Plugins and activate the **Application Insights** plug-in
 
