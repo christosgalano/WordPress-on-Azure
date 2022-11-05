@@ -3,6 +3,10 @@
 [![WoA-deploy-infra](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/woa-deploy.yaml/badge.svg)](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/woa-deploy.yaml)
 [![WoA-destroy-infra](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/woa-destroy.yaml/badge.svg)](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/woa-destroy.yaml)
 
+## General
+
+Purpose of this repository is to show how can someone deploy a WordPress site by utilizing Azure, Bicep and GitHub.
+
 ## Guideline
 
 * [**Part 0: Introduction**](docs/Part-0-Intro.md)
