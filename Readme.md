@@ -14,7 +14,3 @@
 * [**Part 3: Deployment**](docs/Part-3-Deployment.md)
 
 * [**Part 4: Monitoring & Testing**](docs/Part-4-Monitoring-and-Testing.md)
-
-## About me
-
-* [**Christos Galanopoulos**](docs/Self-Introduction.md)
