@@ -1,5 +1,6 @@
-# Local .vscode directories
+# Local directories
 **/.vscode/*
+**/docs/*
 
 # Bicep config
 **/bicepconfig.json
