@@ -1,0 +1,3 @@
+# About me
+
+My name is Christos and this is the first step of my journey to blogging. So, a little bit about me. I have worked as a Cloud DevOps Engineer at Performance Technologies for over about a year now, while also being an undergraduate student at Department of Informatics and Telecommunications NKUA. If someone asked me to describe myself in two words, then those would be curious improver. Whenever I come across something new, I am curious to learn more about it and improve my knowledge of it. Therefore,  i aim for this blog to be my personal knowledge base where I am writing down my thoughts and experiments all around Azure. I hope you find the content useful and that it inspires you to experiment yourselves.
