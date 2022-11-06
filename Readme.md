@@ -9,7 +9,7 @@ Purpose of this repository is to show how can someone host, monitor and test a W
 
 ## Guideline (also available in Wiki)
 
-* [**Part 0: Introduction**](docs/Part-0-Intro.md)
+* [**Part 0: Introduction**](docs/Part-0-Introduction.md)
 
 * [**Part 1: Architecture**](docs/Part-1-Architecture.md)
 
