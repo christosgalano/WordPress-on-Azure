@@ -1,6 +1,6 @@
 # Local directories
 **/.vscode/*
-# **/docs/*
 
-# Bicep config
+# Configurations
 **/bicepconfig.json
+.markdownlint.json

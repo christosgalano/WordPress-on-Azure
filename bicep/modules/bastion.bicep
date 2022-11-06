@@ -58,7 +58,7 @@ resource bastion 'Microsoft.Network/bastionHosts@2022-01-01' = {
   properties: {
     ipConfigurations: [
       {
-        name: 'BastionIpConfiguration'
+        name: 'bastion-ip-configuration'
         properties: {
           subnet: {
             id: subnet_id

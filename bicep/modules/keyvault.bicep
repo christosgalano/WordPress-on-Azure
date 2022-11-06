@@ -190,7 +190,7 @@ resource ple_kv 'Microsoft.Network/privateEndpoints@2022-01-01' = {
 
 resource private_dns_zone_group 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-01-01' = {
   parent: ple_kv
-  name: 'vault-PrivateDnsZoneGroup'
+  name: 'vault-private-dns-zone-group'
   properties: {
     privateDnsZoneConfigs: [
       {

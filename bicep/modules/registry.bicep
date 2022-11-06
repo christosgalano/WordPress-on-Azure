@@ -103,7 +103,7 @@ resource ple_cr 'Microsoft.Network/privateEndpoints@2022-01-01' = {
 
 resource private_dns_zone_group 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-01-01' = {
   parent: ple_cr
-  name: 'registry-PrivateDnsZoneGroup'
+  name: 'registry-private-dns-zone-group'
   properties: {
     privateDnsZoneConfigs: [
       {
