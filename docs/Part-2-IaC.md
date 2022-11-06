@@ -1,10 +1,10 @@
 # WordPress on Azure: Part 2 - IaC
 
-Hello fellow Azure-enthusiasts. In today’s blog post we look into the code that will be used to deploy our [infrastructure](Part-1-Architecture.md).
+Hello, fellow Azure-enthusiasts! In today’s blog post we examine the code that will be used to deploy our [infrastructure](Part-1-Architecture.md).
 
 Bicep is being used for the IaC; all the templates/modules are available in the **bicep/** folder.
 
-We are not going to delve in every single one of the modules, instead we are going to focus in some important and noteworthy aspects.
+We are not going to delve into every single one of the modules; instead, we are going to focus on some important and noteworthy aspects.
 
 ## WebApp
 
@@ -82,9 +82,9 @@ resource webapp 'Microsoft.Web/sites@2022-03-01' = {
 
 Here we need to be careful in enabling some options.
 
-First the **vnetRouteAllEnabled = true** assures that the WebApp outbound traffic to flow through the virtual network.
+First, setting **vnetRouteAllEnabled** to **true** assures that the WebApp's outbound traffic will flow through the virtual network.
 
-Next, both the **vnetImagePullEnabled** and the **acrUseManagedIdentityCreds** options must be set to **true**. By doing this, we allow our WebApp to pull the wordpress image from the ACR using its system-assigned identity.
+Next, both the **vnetImagePullEnabled** and the **acrUseManagedIdentityCreds** options must be set to **true**. By doing this, we allow our WebApp to pull the WordPress  image from the ACR using its system-assigned identity.
 
 Lastly, we need to create the necessary configuration settings regarding the database:
 
@@ -155,9 +155,9 @@ resource mysql 'Microsoft.DBforMySQL/flexibleServers@2021-12-01-preview' = {
 
 </details>
 
-We create a Private DNS Zone and link it to the vnet.
+We create a private DNS zone and link it to the vnet.
 
-Afterwards, we create the flexible server which has a delegated subnet (vnet integration).
+Afterwards, we create the flexible server, which has a delegated subnet (vnet integration).
 
 Because the application expects a pre-existing database with the name *wordpress*, we create it.
 
@@ -225,9 +225,9 @@ resource private_dns_zone_group 'Microsoft.Network/privateEndpoints/privateDnsZo
 
 </details>
 
-Firstly, we create a Private DNS Zone and then link it to the vnet.
+Firstly, we create a private DNS zone and then link it to the vnet.
 
-Then we create the Private Endpoint and create the appropriate zone group in the newly created DNS Zone.
+Then we create the private endpoint and create the appropriate zone group in the newly created DNS zone.
 
 I strongly suggest that you use the **parent** element in order to avoid [resolve errors](https://learn.microsoft.com/en-us/azure/azure-resource-manager/troubleshooting/error-parent-resource?tabs=bicep).
 
@@ -290,13 +290,13 @@ resource role_assignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = 
 
 </details>
 
-Here we only allow a certain list of roles to be assigned.
+Here, we only allow a certain list of roles to be assigned.
 
 We use the friendly role name and then reference the role id using the variable *role*.
 
 ## Summary
 
-That pretty much covers the details of our architecture, in the next part we are going to cover the code that will be used to deploy our infrastructure.
+That about sums up the code modules. In the following part, we will deploy our infrastructure and execute some post-configuration tasks.
 
 **Next part:**
 
