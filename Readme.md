@@ -5,7 +5,7 @@
 
 ## General
 
-Purpose of this repository is to show how can someone deploy, monitor and test a WordPress site by utilizing Azure, Bicep and GitHub.
+Purpose of this repository is to show how can someone host, monitor and test a WordPress site by utilizing Azure, Bicep and GitHub.
 
 ## Guideline (also available in Wiki)
 
