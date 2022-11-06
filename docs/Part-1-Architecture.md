@@ -40,7 +40,9 @@ Regarding the permissions needed, we use a system-assigned identity with the Acr
 
 That pretty much covers the details of our architecture, in the next part we are going to cover the code that will be used to deploy our infrastructure.
 
-**Next part** &rarr; [**Part 2: Infrastructure as Code**](Part-2-IaC.md)
+**Next part:**
+
+* [**Part 2: Infrastructure as Code**](Part-2-IaC.md)
 
 **Previous parts:**
 

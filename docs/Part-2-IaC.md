@@ -298,7 +298,9 @@ We use the friendly role name and then reference the role id using the variable 
 
 That pretty much covers the details of our architecture, in the next part we are going to cover the code that will be used to deploy our infrastructure.
 
-**Next part** &rarr; [**Part 3: Deployment**](Part-3-Deployment.md)
+**Next part:**
+
+* [**Part 3: Deployment**](Part-3-Deployment.md)
 
 **Previous parts:**
 
