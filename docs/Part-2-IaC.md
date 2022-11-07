@@ -24,7 +24,6 @@ resource webapp 'Microsoft.Web/sites@2022-03-01' = {
     vnetRouteAllEnabled: true
     vnetImagePullEnabled: true
     vnetContentShareEnabled: true
-
     siteConfig: {
       acrUseManagedIdentityCreds: true
       alwaysOn: always_on
@@ -72,7 +71,6 @@ resource webapp 'Microsoft.Web/sites@2022-03-01' = {
       ]
       linuxFxVersion: 'DOCKER|${registry_name}.azurecr.io/${image_name}:latest'
     }
-
     serverFarmId: app_service_plan_id
   }
 }
@@ -138,7 +136,6 @@ resource mysql 'Microsoft.DBforMySQL/flexibleServers@2021-12-01-preview' = {
       privateDnsZoneResourceId: private_dns_zone.id
     }
   }
-
   resource database 'databases' = {
     name: database_name
     properties: {
@@ -146,7 +143,6 @@ resource mysql 'Microsoft.DBforMySQL/flexibleServers@2021-12-01-preview' = {
       collation: database_collation
     }
   }
-
   dependsOn: [
     private_dns_zone_vnet_link
   ]
