@@ -1,6 +1,6 @@
 # WordPress on Azure: Part 1 - Architecture
 
-Hello, fellow Azure enthusiasts! In today’s blog post, we look into the WordPress-on-Azure architecture.
+Hello, fellow Azure enthusiasts! In today’s blog post, we look into the Azure architecture of our WordPress deployment.
 
 ![Infrastructure](../images/infrastructure.jpg)
 
