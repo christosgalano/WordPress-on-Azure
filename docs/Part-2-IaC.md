@@ -2,6 +2,8 @@
 
 Hello, fellow Azure-enthusiasts! In today’s blog post we examine the code that will be used to deploy our [infrastructure](Part-1-Architecture.md).
 
+![Bicep](../images/bicep.png)
+
 Bicep is being used for the IaC; all the templates/modules are available in the **bicep/** folder.
 
 We are not going to delve into every single one of the modules; instead, we are going to focus on some important and noteworthy aspects.
