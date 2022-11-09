@@ -121,15 +121,6 @@ resource keyvault 'Microsoft.KeyVault/vaults@2022-07-01' = {
           ]
         }
       }
-      {
-        objectId: 'ff6ddf37-14fe-48bd-a839-630baf1cda33'
-        tenantId: subscription().tenantId
-        permissions: {
-          secrets: [
-            'all'
-          ]
-        }
-      }
     ]
   }
 }

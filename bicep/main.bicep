@@ -324,7 +324,7 @@ module web_test 'modules/web_test.bicep' = {
 
 module load_test 'modules/load_test.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'l0ad-test-${project_id}-deployment'
+  name: 'load-test-${project_id}-deployment'
   params: {
     name: 'lt-${project_id}'
     location: location
