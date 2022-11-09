@@ -36,10 +36,10 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Set Subscription
-        uses: Azure/cli@v1
-        with:
-          inlineScript: az account set --subscription $SUBSCRIPTION_ID
+      # - name: Set Subscription
+      #   uses: Azure/cli@v1
+      #   with:
+      #     inlineScript: az account set --subscription $SUBSCRIPTION_ID
 
       - name: Lint Code
         working-directory: ${{ github.workspace }}/bicep
@@ -63,10 +63,10 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Set Subscription
-        uses: Azure/cli@v1
-        with:
-          inlineScript: az account set --subscription $SUBSCRIPTION_ID
+      # - name: Set Subscription
+      #   uses: Azure/cli@v1
+      #   with:
+      #     inlineScript: az account set --subscription $SUBSCRIPTION_ID
 
       - name: Validate template
         working-directory: ${{ github.workspace }}/bicep
@@ -99,10 +99,10 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Set Subscription
-        uses: Azure/cli@v1
-        with:
-          inlineScript: az account set --subscription $SUBSCRIPTION_ID
+      # - name: Set Subscription
+      #   uses: Azure/cli@v1
+      #   with:
+      #     inlineScript: az account set --subscription $SUBSCRIPTION_ID
 
       - name: Deploy template
         working-directory: ${{ github.workspace }}/bicep
