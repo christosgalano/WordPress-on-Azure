@@ -1,6 +1,6 @@
 # WordPress on Azure: Part 0 - Introduction
 
-![WordPress-on-Azure](../images/wordpress-on-azure.png)
+![wordpress-on-azure](../images/wordpress-on-azure.png)
 
 Hello, fellow Azure enthusiasts! I suppose more or less all of us have heard about WordPress or even come across a WordPress site. For those who haven't heard of it, [**WordPress**](https://en.wikipedia.org/wiki/WordPress) is a content management system that powers a significant number of websites. So, the purpose of this series of articles will be about utilizing Azure, Bicep, and GitHub to host, monitor, and test a WordPress site. There will be 5 posts in the following sequence:
 

@@ -2,7 +2,7 @@
 
 Hello, fellow Azure enthusiasts! In today’s blog post, we look into the Azure architecture of our WordPress deployment.
 
-![Infrastructure](../images/infrastructure.jpg)
+![infrastructure](../images/infrastructure.jpg)
 
 ## Overview
 
