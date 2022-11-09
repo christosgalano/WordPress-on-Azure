@@ -27,12 +27,12 @@ jobs:
           secret: ${{ github.TOKEN }}
 
   destroy:
-    permissions:
-      id-token: write
-      contents: read
     name: Destroy Infrastructure
     needs: approve
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     defaults:
       run:
         shell: bash
