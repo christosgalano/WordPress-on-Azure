@@ -330,4 +330,7 @@ module load_test 'modules/load_test.bicep' = {
     location: location
     test_description: 'Load test the WordPress application'
   }
+  dependsOn: [
+    rg
+  ]
 }
