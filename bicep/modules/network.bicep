@@ -10,10 +10,10 @@ param vnet_location string
 param vnet_address_space array
 
 @description('Name of the subnet where the private endpoints will reside')
-param snet_ple_name string
+param snet_pep_name string
 
 @description('Address space of the subnet where the private endpoints will reside')
-param snet_ple_address_prefix string
+param snet_pep_address_prefix string
 
 @description('Name of the subnet where the Bastion host will reside')
 param snet_bastion_name string = 'AzureBastionSubnet'
@@ -50,9 +50,9 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-01-01' = {
     }
     subnets: [
       {
-        name: snet_ple_name
+        name: snet_pep_name
         properties: {
-          addressPrefix: snet_ple_address_prefix
+          addressPrefix: snet_pep_address_prefix
           privateEndpointNetworkPolicies: 'Disabled'
         }
       }
@@ -107,7 +107,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-01-01' = {
 // Outputs
 
 output vnet_id string = vnet.id
-output snet_ple_id string = vnet.properties.subnets[0].id
+output snet_pep_id string = vnet.properties.subnets[0].id
 output snet_bastion_id string = vnet.properties.subnets[1].id
 output snet_jumpbox_id string = vnet.properties.subnets[2].id
 output snet_webapp_id string = vnet.properties.subnets[3].id

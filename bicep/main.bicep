@@ -54,8 +54,8 @@ module network 'modules/network.bicep' = {
     vnet_location: location
     vnet_address_space: [ '10.0.0.0/23' ]
 
-    snet_ple_name: 'snet-ple-${project_id}'
-    snet_ple_address_prefix: '10.0.0.0/27'
+    snet_pep_name: 'snet-pep-${project_id}'
+    snet_pep_address_prefix: '10.0.0.0/27'
 
     snet_jumpbox_name: 'snet-jumpbox-${project_id}'
     snet_jumpbox_address_prefix: '10.0.0.32/27'
@@ -99,9 +99,9 @@ module registry 'modules/registry.bicep' = {
     public_network_access: 'Disabled'
     zone_redundancy: 'Disabled'
 
-    ple_name: 'ple-cr-${project_id}'
-    ple_location: location
-    ple_subnet_id: network.outputs.snet_ple_id
+    pep_name: 'pep-cr-${project_id}'
+    pep_location: location
+    pep_subnet_id: network.outputs.snet_pep_id
 
     vnet_id: network.outputs.vnet_id
   }
@@ -202,9 +202,9 @@ module keyvault 'modules/keyvault.bicep' = {
     jumpbox_identity_object_id: jumpbox.outputs.vm_identity_principal_id
     webapp_identity_object_id: webapp.outputs.webapp_identity_principal_id
 
-    ple_name: 'ple-kv-${project_id}'
-    ple_location: location
-    ple_subnet_id: network.outputs.snet_ple_id
+    pep_name: 'pep-kv-${project_id}'
+    pep_location: location
+    pep_subnet_id: network.outputs.snet_pep_id
 
     vnet_id: network.outputs.vnet_id
   }

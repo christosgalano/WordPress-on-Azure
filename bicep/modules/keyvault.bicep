@@ -37,13 +37,13 @@ param webapp_identity_object_id string
 param vnet_id string
 
 @description('Name of the key vault private endpoint')
-param ple_name string
+param pep_name string
 
 @description('Location of the key vault private endpoint')
-param ple_location string
+param pep_location string
 
 @description('ID of the subnet where the private endpoint will reside')
-param ple_subnet_id string
+param pep_subnet_id string
 
 @secure()
 @description('Password of jumpbox admin')
@@ -158,13 +158,13 @@ resource private_dns_zone_vnet_link 'Microsoft.Network/privateDnsZones/virtualNe
   }
 }
 
-resource ple_kv 'Microsoft.Network/privateEndpoints@2022-01-01' = {
-  name: ple_name
-  location: ple_location
+resource pep_kv 'Microsoft.Network/privateEndpoints@2022-01-01' = {
+  name: pep_name
+  location: pep_location
   properties: {
     privateLinkServiceConnections: [
       {
-        name: ple_name
+        name: pep_name
         properties: {
           groupIds: [
             'vault'
@@ -174,13 +174,13 @@ resource ple_kv 'Microsoft.Network/privateEndpoints@2022-01-01' = {
       }
     ]
     subnet: {
-      id: ple_subnet_id
+      id: pep_subnet_id
     }
   }
 }
 
 resource private_dns_zone_group 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-01-01' = {
-  parent: ple_kv
+  parent: pep_kv
   name: 'vault-private-dns-zone-group'
   properties: {
     privateDnsZoneConfigs: [
