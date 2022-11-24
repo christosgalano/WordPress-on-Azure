@@ -1,7 +1,5 @@
 # WordPress on Azure: Part 2 - IaC
 
-Hello, fellow Azure-enthusiasts! In today’s blog post we examine the code that will be used to deploy our [infrastructure](Part-1-Architecture.md).
-
 ![bicep](../images/bicep.png)
 
 Bicep is being used for the IaC; all the templates/modules are available in the **bicep/** folder.
