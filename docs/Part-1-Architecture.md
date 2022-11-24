@@ -42,7 +42,7 @@ That pretty much covers the details of our architecture. In the next part, we ar
 
 **Next part:**
 
-* **Part 2: Infrastructure as Code**
+* [**Part 2: Infrastructure as Code**](Part-2-IaC.md)
 
 **Previous parts:**
 

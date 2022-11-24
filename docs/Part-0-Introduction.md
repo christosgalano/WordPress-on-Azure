@@ -8,7 +8,8 @@ Hello, fellow Azure enthusiasts! I suppose more or less all of us have heard abo
 
 * [**Part 1: Architecture**](Part-1-Architecture.md)
 
-* **Part 2: Infrastructure as Code**
+* [**Part 2: Infrastructure as Code**](Part-2-IaC.md)
 
 * **Part 3: Deployment**
+
 * **Part 4: Monitoring & Testing**
