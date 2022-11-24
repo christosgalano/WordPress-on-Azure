@@ -13,7 +13,7 @@ The purpose of this repository is to show how someone can host, monitor, and tes
 
 * [**Part 1: Architecture**](docs/Part-1-Architecture.md)
 
-* **Part 2: Infrastructure as Code**
+* [**Part 2: Infrastructure as Code**](docs/Part-2-IaC.md)
 
 * **Part 3: Deployment**
 
