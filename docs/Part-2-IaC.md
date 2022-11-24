@@ -182,13 +182,13 @@ resource private_dns_zone_vnet_link 'Microsoft.Network/privateDnsZones/virtualNe
   }
 }
 
-resource ple_cr 'Microsoft.Network/privateEndpoints@2022-01-01' = {
-  name: ple_name
-  location: ple_location
+resource pep_cr 'Microsoft.Network/privateEndpoints@2022-01-01' = {
+  name: pep_name
+  location: pep_location
   properties: {
     privateLinkServiceConnections: [
       {
-        name: ple_name
+        name: pep_name
         properties: {
           groupIds: [
             'registry'
@@ -198,13 +198,13 @@ resource ple_cr 'Microsoft.Network/privateEndpoints@2022-01-01' = {
       }
     ]
     subnet: {
-      id: ple_subnet_id
+      id: pep_subnet_id
     }
   }
 }
 
 resource private_dns_zone_group 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-01-01' = {
-  parent: ple_cr
+  parent: pep_cr
   name: 'registry-private-dns-zone-group'
   properties: {
     privateDnsZoneConfigs: [
