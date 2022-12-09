@@ -296,7 +296,7 @@ That about sums up the code modules. In the following part, we will deploy our i
 
 **Next part:**
 
-* **Part 3: Deployment**
+* [**Part 3: Deployment**](Part-3-Deployment.md)
 
 **Previous parts:**
 
