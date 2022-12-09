@@ -15,6 +15,6 @@ The purpose of this repository is to show how someone can host, monitor, and tes
 
 * [**Part 2: Infrastructure as Code**](docs/Part-2-IaC.md)
 
-* **Part 3: Deployment**
+* [**Part 3: Deployment**](docs/Part-3-Deployment.md)
 
 * **Part 4: Monitoring & Testing**
