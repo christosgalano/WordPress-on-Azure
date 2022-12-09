@@ -71,7 +71,7 @@ cd /home/site/wwwroot && mkdir bin && cd bin
 curl https://cacerts.digicert.com/DigiCertGlobalRootCA.crt.pem -o DigiCertGlobalRootCA.crt.pem
 ```
 
-![kudu-environment](../../images/kudu.png)
+![kudu-environment](../images/kudu.png)
 
 ### Import WordPress image to Azure Container Registry
 
@@ -79,7 +79,7 @@ curl https://cacerts.digicert.com/DigiCertGlobalRootCA.crt.pem -o DigiCertGlobal
 
 * Login to the jumpbox through Bastion using the credentials stored in the Key Vault
 
-![bastion-login](../../images/bastion-login.png)
+![bastion-login](../images/bastion-login.png)
 
 * Run the following:
 
