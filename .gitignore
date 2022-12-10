@@ -3,6 +3,7 @@
 **/docs/dev/*
 
 # Files
+**/docs/*.pptx
 **/bicepconfig.json
 .markdownlint.json
 *.html
