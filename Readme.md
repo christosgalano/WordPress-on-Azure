@@ -1,7 +1,7 @@
 # WordPress on Azure
 
-[![WoA-deploy-infra](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/deploy.yaml/badge.svg)](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/deploy.yaml)
-[![WoA-destroy-infra](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/destroy.yaml/badge.svg)](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/destroy.yaml)
+[![deploy-infra](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/deploy.yaml/badge.svg)](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/deploy.yaml)
+[![destroy-infra](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/destroy.yaml/badge.svg)](https://github.com/christosgalano/WordPress-on-Azure/actions/workflows/destroy.yaml)
 
 ## General
 
