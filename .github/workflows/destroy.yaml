@@ -1,4 +1,4 @@
-name: WoA-destroy-infra
+name: destroy-infra
 
 run-name: ${{ github.workflow }}
 

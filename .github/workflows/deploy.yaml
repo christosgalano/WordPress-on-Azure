@@ -1,4 +1,4 @@
-name: WoA-deploy-infra
+name: deploy-infra
 
 run-name: ${{ github.workflow }}
 
