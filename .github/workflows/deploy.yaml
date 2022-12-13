@@ -1,13 +1,16 @@
 name: WoA-deploy-infra
 
+run-name: ${{ github.workflow }} triggered by ${{ github.triggering_actor }}
+
 on:
   workflow_dispatch:
     inputs:
       deployment_name:
         description: "Define deployment name"
         required: true
+        type: string
 
-# Allow the action to get the required token
+# Requirement OIDC
 permissions:
   id-token: write
   contents: read
@@ -15,7 +18,7 @@ permissions:
 env:
   SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
-  DEPLOYMENT_NAME: ${{ github.event.inputs.deployment_name }}
+  DEPLOYMENT_NAME: ${{ inputs.deployment_name }}
   SETUP_SCRIPT: ${{ github.workspace }}/scripts/setup_jumpbox.tpl
 
 jobs:
