@@ -1,6 +1,6 @@
 name: WoA-destroy-infra
 
-run-name: ${{ github.workflow }} triggered by ${{ github.triggering_actor }}
+run-name: ${{ github.workflow }}
 
 on:
   workflow_dispatch:
