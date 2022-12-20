@@ -39,7 +39,6 @@ resource app_service_plan 'Microsoft.Web/serverfarms@2022-03-01' = {
   properties: {
     reserved: reserved
     zoneRedundant: zone_redundant
-
   }
   kind: kind
 }
