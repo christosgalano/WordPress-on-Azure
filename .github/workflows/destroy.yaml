@@ -25,11 +25,6 @@ jobs:
           disable-sudo: true
           egress-policy: audit
 
-      - name: Collect Workflow Telemetry
-        uses: runforesight/foresight-workflow-kit-action@v1
-        with:
-          api_key: ${{ secrets.FORESIGHT_API_KEY }}
-
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -56,11 +51,6 @@ jobs:
         with:
           disable-sudo: true
           egress-policy: audit
-
-      - name: Collect Workflow Telemetry
-        uses: runforesight/foresight-workflow-kit-action@v1
-        with:
-          api_key: ${{ secrets.FORESIGHT_API_KEY }}
 
       - name: Checkout
         uses: actions/checkout@v3
