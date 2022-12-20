@@ -19,6 +19,17 @@ jobs:
     name: Approve infrastructure teardown
     runs-on: ubuntu-latest
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.0.0
+        with:
+          disable-sudo: true
+          egress-policy: audit
+
+      - name: Collect Workflow Telemetry
+        uses: runforesight/foresight-workflow-kit-action@v1
+        with:
+          api_key: ${{ secrets.FORESIGHT_API_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -40,6 +51,17 @@ jobs:
       run:
         shell: bash
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.0.0
+        with:
+          disable-sudo: true
+          egress-policy: audit
+
+      - name: Collect Workflow Telemetry
+        uses: runforesight/foresight-workflow-kit-action@v1
+        with:
+          api_key: ${{ secrets.FORESIGHT_API_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -50,7 +72,7 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Delete the resource group and all of its resources
-        uses: Azure/cli@v1
-        with:
-          inlineScript: az group delete -n $RG_NAME -y
+      # - name: Delete the resource group and all of its resources
+      #   uses: Azure/cli@v1
+      #   with:
+      #     inlineScript: az group delete -n $RG_NAME -y
