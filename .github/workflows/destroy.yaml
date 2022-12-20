@@ -68,8 +68,4 @@ jobs:
       - name: Delete the resource group and all of its resources
         uses: Azure/cli@v1
         with:
-          inlineScript: az group show -n $RG_NAME
-          # inlineScript: az group delete -n $RG_NAME -y
-      - name: Test curl
-        run: |
-          curl www.google.com
+          inlineScript: az group delete -n $RG_NAME -y
