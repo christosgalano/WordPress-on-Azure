@@ -60,7 +60,7 @@ jobs:
             github.com:443
             login.microsoftonline.com:443
             management.azure.com:443
-            *.mcr.microsoft.com:443
+            eastus.mcr.microsoft.com:443
             mcr.microsoft.com:443
             raw.githubusercontent.com:443
 
@@ -79,3 +79,6 @@ jobs:
         with:
           inlineScript: az group show -n $RG_NAME
           # inlineScript: az group delete -n $RG_NAME -y
+      - name: Test curl
+        run: |
+          curl www.google.com
