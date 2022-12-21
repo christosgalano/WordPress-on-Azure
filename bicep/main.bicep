@@ -1,17 +1,25 @@
-targetScope = 'subscription'
-
-// Parameters
+/// Parameters ///
 
 @description('ID of the subscription')
 param subscription_id string
 
-@minLength(2)
-@maxLength(5)
-@description('Project identifier that is going to be included in every resource name')
-param project_id string
+@description('Object of the Azure Names module')
+param aznames object
+
+@description('name of the resource group where the workload will be deployed')
+param rg_name string
 
 @description('Azure region used for the deployment of all resources')
 param location string
+
+@description('Abbreviation fo the location')
+param location_abbreviation string
+
+@description('Name of the workload that will be deployed')
+param workload string
+
+@description('Name of the workloads environment')
+param environment string
 
 @description('Username of the jumpbox admin')
 param jumpbox_admin_username string
@@ -30,68 +38,53 @@ param mysql_admin_password string
 @description('Object id of the github runner service principal')
 param github_runner_object_id string
 
-// Variables
+/// Variables ///
 
-var rg_name = 'rg-${project_id}'
-var kv_name = 'kv-${project_id}'
+var kv_name = aznames.keyVault.uniName
 var mysql_admin_password_secret_name = 'mysql-admin-password'
 
-// Modules
-
-module rg 'modules/resource_group.bicep' = {
-  name: 'rg-${project_id}-deployment'
-  params: {
-    name: rg_name
-    location: location
-  }
-}
+/// Modules ///
 
 module network 'modules/network.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'network-${project_id}-deployment'
+  name: 'network-${workload}-deployment'
   params: {
-    vnet_name: 'vnet-${project_id}'
+    vnet_name: aznames.virtualNetwork.refName
     vnet_location: location
     vnet_address_space: [ '10.0.0.0/23' ]
 
-    snet_pep_name: 'snet-pep-${project_id}'
+    snet_pep_name: 'snet-pep'
     snet_pep_address_prefix: '10.0.0.0/27'
 
-    snet_jumpbox_name: 'snet-jumpbox-${project_id}'
+    snet_jumpbox_name: 'snet-jumpbox'
     snet_jumpbox_address_prefix: '10.0.0.32/27'
 
     snet_bastion_name: 'AzureBastionSubnet'
     snet_bastion_address_prefix: '10.0.0.64/27'
 
-    snet_webapp_name: 'snet-webapp-${project_id}'
+    snet_webapp_name: 'snet-webapp'
     snet_webapp_address_prefix: '10.0.0.96/27'
 
-    snet_mysql_name: 'snet-mysql-${project_id}'
+    snet_mysql_name: 'snet-mysql'
     snet_mysql_address_prefix: '10.0.0.128/27'
   }
-  dependsOn: [
-    rg
-  ]
 }
 
 module log_workspace 'modules/log_workspace.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'log-${project_id}-deployment'
+  name: 'log-${workload}-deployment'
   params: {
-    name: 'log-${project_id}'
+    name: aznames.logAnalyticsWorkspace.refName
     location: location
     sku: 'PerGB2018'
   }
-  dependsOn: [
-    rg
-  ]
 }
 
 module registry 'modules/registry.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'cr-${project_id}-deployment'
+  name: 'cr-${workload}-deployment'
   params: {
-    name: 'cr${project_id}'
+    name: aznames.containerRegistry.uniName
     location: location
     sku: 'Premium'
 
@@ -99,7 +92,7 @@ module registry 'modules/registry.bicep' = {
     public_network_access: 'Disabled'
     zone_redundancy: 'Disabled'
 
-    pep_name: 'pep-cr-${project_id}'
+    pep_name: 'pep-cr-${workload}'
     pep_location: location
     pep_subnet_id: network.outputs.snet_pep_id
 
@@ -109,9 +102,9 @@ module registry 'modules/registry.bicep' = {
 
 module jumpbox 'modules/jumpbox.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'jumpbox-${project_id}-deployment'
+  name: 'jumpbox-${workload}-deployment'
   params: {
-    name: 'vm-jumpbox-${project_id}'
+    name: aznames.virtualMachineLinux.refName
     location: location
     size: 'Standard_D2_v2'
 
@@ -123,7 +116,7 @@ module jumpbox 'modules/jumpbox.bicep' = {
     image_sku: '18.04-LTS'
     image_version: 'latest'
 
-    nic_name: 'nic-vm-jumpbox-${project_id}'
+    nic_name: 'nic-vm-jumpbox'
     nic_location: location
 
     jumpbox_subnet_id: network.outputs.snet_jumpbox_id
@@ -132,7 +125,7 @@ module jumpbox 'modules/jumpbox.bicep' = {
 
 module contributor_role_assignment 'modules/role_assignment.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'contributor-role-assignment-${project_id}-deployment'
+  name: 'contributor-role-assignment-${workload}-deployment'
   params: {
     built_in_role_type: 'Contributor'
     principal_id: jumpbox.outputs.vm_identity_principal_id
@@ -141,7 +134,7 @@ module contributor_role_assignment 'modules/role_assignment.bicep' = {
 
 module acrpush_role_assignment 'modules/role_assignment.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'acrpush-role-assignment-${project_id}-deployment'
+  name: 'acrpush-role-assignment-${workload}-deployment'
   params: {
     built_in_role_type: 'AcrPush'
     principal_id: jumpbox.outputs.vm_identity_principal_id
@@ -150,9 +143,9 @@ module acrpush_role_assignment 'modules/role_assignment.bicep' = {
 
 module app_insights 'modules/application_insights.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'appi-${project_id}-deployment'
+  name: 'appi-${workload}-deployment'
   params: {
-    name: 'appi-${project_id}'
+    name: aznames.applicationInsights.refName
     location: location
     kind: 'web'
     application_type: 'web'
@@ -162,9 +155,9 @@ module app_insights 'modules/application_insights.bicep' = {
 
 module app_service_plan 'modules/app_service_plan.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'plan-${project_id}-deployment'
+  name: 'plan-${workload}-deployment'
   params: {
-    name: 'plan-${project_id}'
+    name: aznames.appServicePlan.refName
     location: location
 
     kind: 'linux'
@@ -175,14 +168,11 @@ module app_service_plan 'modules/app_service_plan.bicep' = {
     reserved: true
     zone_redundant: false
   }
-  dependsOn: [
-    rg
-  ]
 }
 
 module keyvault 'modules/keyvault.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'kv-${project_id}-deployment'
+  name: 'kv-${workload}-deployment'
   params: {
     name: kv_name
     location: location
@@ -202,7 +192,7 @@ module keyvault 'modules/keyvault.bicep' = {
     jumpbox_identity_object_id: jumpbox.outputs.vm_identity_principal_id
     webapp_identity_object_id: webapp.outputs.webapp_identity_principal_id
 
-    pep_name: 'pep-kv-${project_id}'
+    pep_name: 'pep-kv-${workload}-${environment}-${location_abbreviation}'
     pep_location: location
     pep_subnet_id: network.outputs.snet_pep_id
 
@@ -212,13 +202,13 @@ module keyvault 'modules/keyvault.bicep' = {
 
 module bastion 'modules/bastion.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'bastion-${project_id}-deployment'
+  name: 'bastion-${workload}-deployment'
   params: {
-    name: 'bastion-${project_id}'
+    name: aznames.bastionHost.refName
     location: location
     sku: 'Standard'
 
-    pip_name: 'pip-bastion-${project_id}'
+    pip_name: 'pip-bas-${workload}-${environment}-${location_abbreviation}'
     pip_location: location
     pip_sku_name: 'Standard'
     pip_allocation_method: 'Static'
@@ -229,9 +219,9 @@ module bastion 'modules/bastion.bicep' = {
 
 module mysql 'modules/mysql.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'mysql-${project_id}-deployment'
+  name: aznames.mysqlServer.refName
   params: {
-    name: 'mysql-${project_id}'
+    name: 'mysql-${workload}'
     location: location
 
     sku_name: 'Standard_D8ds_v4'
@@ -256,9 +246,9 @@ module mysql 'modules/mysql.bicep' = {
 
 module webapp 'modules/webapp.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'app-${project_id}-deployment'
+  name: 'app-${workload}-deployment'
   params: {
-    name: 'app-${project_id}'
+    name: aznames.appService.refName
     location: location
 
     subnet_id: network.outputs.snet_webapp_id
@@ -281,7 +271,7 @@ module webapp 'modules/webapp.bicep' = {
 
 module acrpull_role_assignment 'modules/role_assignment.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'acrpull-role-assignment-${project_id}-deployment'
+  name: 'acrpull-role-assignment-${workload}-deployment'
   params: {
     built_in_role_type: 'AcrPull'
     principal_id: webapp.outputs.webapp_identity_principal_id
@@ -290,9 +280,9 @@ module acrpull_role_assignment 'modules/role_assignment.bicep' = {
 
 module web_test 'modules/web_test.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'web-test-${project_id}-deployment'
+  name: 'web-test-${workload}-deployment'
   params: {
-    name: 'test-wordpress-${app_insights.outputs.app_insights_name}'
+    name: 'test-wordpress-${app_insights.outputs.app_insights_name}-${workload}-${environment}-${location_abbreviation}'
     location: location
     kind: 'standard'
     test_description: 'Test the WordPress application'
@@ -324,13 +314,10 @@ module web_test 'modules/web_test.bicep' = {
 
 module load_test 'modules/load_test.bicep' = {
   scope: resourceGroup(rg_name)
-  name: 'load-test-${project_id}-deployment'
+  name: 'load-test-${workload}-deployment'
   params: {
-    name: 'lt-${project_id}'
+    name: 'lt-${workload}-${environment}-${location_abbreviation}'
     location: location
     test_description: 'Load test the WordPress application'
   }
-  dependsOn: [
-    rg
-  ]
 }

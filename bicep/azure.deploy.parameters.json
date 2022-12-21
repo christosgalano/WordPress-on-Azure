@@ -2,11 +2,23 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "project_id": {
+        "workload": {
             "value": "woa"
         },
+        "environment": {
+            "value": "dev"
+        },
         "location": {
-            "value": "West Europe"
+            "value": "westeurope"
+        },
+        "location_abbreviation": {
+            "value": "weu"
+        },
+        "rg_tags": {
+            "value": {
+                "owner": "myself",
+                "costCenter": "personal wallet"
+            }
         },
         "jumpbox_admin_username": {
             "value": "azureuser"
