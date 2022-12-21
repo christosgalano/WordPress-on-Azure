@@ -47,7 +47,7 @@ jobs:
 
       - name: Lint Code
         working-directory: ${{ github.workspace }}/bicep
-        run: az bicep build --file main.bicep
+        run: az bicep build --file azure.deploy.bicep
 
   validate:
     name: Validate Template
@@ -79,8 +79,8 @@ jobs:
           az deployment sub validate \
             --name "$DEPLOYMENT_NAME" \
             --location westeurope \
-            --template-file main.bicep \
-            --parameters "main.parameters.json" \
+            --template-file azure.deploy.bicep \
+            --parameters "azure.deploy.parameters.json" \
                           subscription_id="$SUBSCRIPTION_ID" \
                           mysql_admin_password="$ADMIN_PASSWORD" \
                           jumpbox_admin_password="$ADMIN_PASSWORD" \
@@ -116,8 +116,8 @@ jobs:
           az deployment sub create \
             --name "$DEPLOYMENT_NAME" \
             --location westeurope \
-            --template-file main.bicep \
-            --parameters "main.parameters.json" \
+            --template-file azure.deploy.bicep \
+            --parameters "azure.deploy.parameters.json" \
                           subscription_id="$SUBSCRIPTION_ID" \
                           mysql_admin_password="$ADMIN_PASSWORD" \
                           jumpbox_admin_password="$ADMIN_PASSWORD" \
