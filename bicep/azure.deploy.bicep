@@ -62,7 +62,7 @@ module aznames 'modules/aznames.bicep' = {
       environment
       location_abbreviation
     ]
-    uniquifierLength: 3
+    uniquifierLength: 5
     uniquifier: rg.id
     useDashes: true
   }
