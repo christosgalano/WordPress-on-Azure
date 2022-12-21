@@ -4,6 +4,8 @@
 
 Bicep is being used for the IaC; all the templates/modules are available in the **bicep/** folder.
 
+The [AzNames](https://github.com/francesco-sodano/AZNames-bicep) has been used to apply the desired naming convention. Many thanks to [Nikolaos Antoniou](https://github.com/nianton) for suggesting this module and inspiring its creation with his own work [Azure Naming](https://github.com/nianton/azure-naming).
+
 We are not going to delve into every single one of the modules; instead, we are going to focus on some important and noteworthy aspects.
 
 ## WebApp
