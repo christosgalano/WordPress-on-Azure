@@ -219,9 +219,9 @@ module bastion 'modules/bastion.bicep' = {
 
 module mysql 'modules/mysql.bicep' = {
   scope: resourceGroup(rg_name)
-  name: aznames.mysqlServer.refName
+  name: 'mysql-${workload}-deployment'
   params: {
-    name: 'mysql-${workload}'
+    name: aznames.mysqlServer.refName
     location: location
 
     sku_name: 'Standard_D8ds_v4'
