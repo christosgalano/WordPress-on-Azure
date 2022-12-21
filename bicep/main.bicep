@@ -92,7 +92,7 @@ module registry 'modules/registry.bicep' = {
     public_network_access: 'Disabled'
     zone_redundancy: 'Disabled'
 
-    pep_name: 'pep-cr-${workload}'
+    pep_name: 'pep-cr-${workload}-${environment}-${location_abbreviation}'
     pep_location: location
     pep_subnet_id: network.outputs.snet_pep_id
 
