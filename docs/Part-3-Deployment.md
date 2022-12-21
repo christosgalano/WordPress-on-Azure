@@ -113,4 +113,5 @@ So we deployed our infrastructure and completed the essential post-configuration
 * [**Part 1: Architecture**](Part-1-Architecture.md)
 
 * [**Part 2: Infrastructure as Code**](Part-2-IaC.md)
-  
+
+**Related blog post:** <https://cloud-on-rails.com/2022/12/09/wordpress-on-azure-part-3-deployment/>

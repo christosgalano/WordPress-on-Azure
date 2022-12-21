@@ -45,3 +45,5 @@ That pretty much covers the details of our architecture. In the next part, we ar
 **Previous parts:**
 
 * [**Part 0: Introduction**](Part-0-Introduction.md)
+
+**Related blog post:** <https://cloud-on-rails.com/2022/11/07/wordpress-on-azure-part-1-architecture/>

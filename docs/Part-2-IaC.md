@@ -303,3 +303,5 @@ That about sums up the code modules. In the following part, we will deploy our i
 * [**Part 0: Introduction**](Part-0-Introduction.md)
 
 * [**Part 1: Architecture**](Part-1-Architecture.md)
+
+**Related blog post:** <https://cloud-on-rails.com/2022/11/24/wordpress-on-azure-part-2-iac/>
