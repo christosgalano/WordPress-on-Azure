@@ -3,8 +3,8 @@
 @description('ID of the subscription')
 param subscription_id string
 
-@description('Object of the Azure Names module')
-param aznames object
+@description('Object of the Azure Naming module')
+param naming object
 
 @description('name of the resource group where the workload will be deployed')
 param rg_name string
@@ -38,10 +38,18 @@ param mysql_admin_password string
 @description('Object id of the github runner service principal')
 param github_runner_object_id string
 
+@description('Name of the secret that will store the mysql admin password')
+#disable-next-line secure-secrets-in-params
+param mysql_admin_password_secret_name string
+
+@description('Name of the secret that will store the jumpbox admin password')
+#disable-next-line secure-secrets-in-params
+param jumpbox_admin_password_secret_name string
+
 /// Variables ///
 
-var kv_name = aznames.keyVault.uniName
-var mysql_admin_password_secret_name = 'mysql-admin-password'
+var kv_name = naming.keyVault.nameUnique
+var suffix = '${workload}-${environment}-${location_abbreviation}'
 
 /// Modules ///
 
@@ -49,7 +57,7 @@ module network 'modules/network.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'network-${workload}-deployment'
   params: {
-    vnet_name: aznames.virtualNetwork.refName
+    vnet_name: naming.virtualNetwork.name
     vnet_location: location
     vnet_address_space: [ '10.0.0.0/23' ]
 
@@ -74,7 +82,7 @@ module log_workspace 'modules/log_workspace.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'log-${workload}-deployment'
   params: {
-    name: aznames.logAnalyticsWorkspace.refName
+    name: naming.logAnalyticsWorkspace.name
     location: location
     sku: 'PerGB2018'
   }
@@ -84,7 +92,7 @@ module registry 'modules/registry.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'cr-${workload}-deployment'
   params: {
-    name: aznames.containerRegistry.uniName
+    name: naming.containerRegistry.nameUnique
     location: location
     sku: 'Premium'
 
@@ -92,7 +100,7 @@ module registry 'modules/registry.bicep' = {
     public_network_access: 'Disabled'
     zone_redundancy: 'Disabled'
 
-    pep_name: 'pep-cr-${workload}-${environment}-${location_abbreviation}'
+    pep_name: 'pep-cr-${suffix}'
     pep_location: location
     pep_subnet_id: network.outputs.snet_pep_id
 
@@ -104,7 +112,7 @@ module jumpbox 'modules/jumpbox.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'jumpbox-${workload}-deployment'
   params: {
-    name: aznames.virtualMachineLinux.refName
+    name: naming.virtualMachineLinux.name
     location: location
     size: 'Standard_D2_v2'
 
@@ -145,7 +153,7 @@ module app_insights 'modules/application_insights.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'appi-${workload}-deployment'
   params: {
-    name: aznames.applicationInsights.refName
+    name: naming.applicationInsights.name
     location: location
     kind: 'web'
     application_type: 'web'
@@ -157,7 +165,7 @@ module app_service_plan 'modules/app_service_plan.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'plan-${workload}-deployment'
   params: {
-    name: aznames.appServicePlan.refName
+    name: naming.appServicePlan.name
     location: location
 
     kind: 'linux'
@@ -182,7 +190,7 @@ module keyvault 'modules/keyvault.bicep' = {
     purge_protection_enabled: true
     enabled_for_template_deployment: true
 
-    jumpbox_admin_password_secret_name: 'jumpbox-admin-password'
+    jumpbox_admin_password_secret_name: jumpbox_admin_password_secret_name
     jumpbox_admin_password_secret_value: jumpbox_admin_password
 
     mysql_admin_password_secret_name: mysql_admin_password_secret_name
@@ -192,7 +200,7 @@ module keyvault 'modules/keyvault.bicep' = {
     jumpbox_identity_object_id: jumpbox.outputs.vm_identity_principal_id
     webapp_identity_object_id: webapp.outputs.webapp_identity_principal_id
 
-    pep_name: 'pep-kv-${workload}-${environment}-${location_abbreviation}'
+    pep_name: 'pep-kv-${suffix}'
     pep_location: location
     pep_subnet_id: network.outputs.snet_pep_id
 
@@ -204,11 +212,11 @@ module bastion 'modules/bastion.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'bastion-${workload}-deployment'
   params: {
-    name: aznames.bastionHost.refName
+    name: naming.bastionHost.name
     location: location
     sku: 'Standard'
 
-    pip_name: 'pip-bas-${workload}-${environment}-${location_abbreviation}'
+    pip_name: 'pip-bas-${suffix}'
     pip_location: location
     pip_sku_name: 'Standard'
     pip_allocation_method: 'Static'
@@ -221,7 +229,7 @@ module mysql 'modules/mysql.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'mysql-${workload}-deployment'
   params: {
-    name: aznames.mysqlServer.refName
+    name: naming.mysqlServer.name
     location: location
 
     sku_name: 'Standard_D8ds_v4'
@@ -248,7 +256,7 @@ module webapp 'modules/webapp.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'app-${workload}-deployment'
   params: {
-    name: aznames.appService.refName
+    name: naming.appService.name
     location: location
 
     subnet_id: network.outputs.snet_webapp_id
@@ -282,7 +290,7 @@ module web_test 'modules/web_test.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'web-test-${workload}-deployment'
   params: {
-    name: 'test-wordpress-${app_insights.outputs.app_insights_name}-${workload}-${environment}-${location_abbreviation}'
+    name: 'test-wordpress-${app_insights.outputs.app_insights_name}-${suffix}'
     location: location
     kind: 'standard'
     test_description: 'Test the WordPress application'
@@ -316,7 +324,7 @@ module load_test 'modules/load_test.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'load-test-${workload}-deployment'
   params: {
-    name: 'lt-${workload}-${environment}-${location_abbreviation}'
+    name: 'lt-${suffix}'
     location: location
     test_description: 'Load test the WordPress application'
   }
