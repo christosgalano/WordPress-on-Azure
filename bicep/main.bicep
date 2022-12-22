@@ -112,7 +112,7 @@ module jumpbox 'modules/jumpbox.bicep' = {
   scope: resourceGroup(rg_name)
   name: 'jumpbox-${workload}-deployment'
   params: {
-    name: naming.virtualMachineLinux.name
+    name: naming.virtualMachine.name
     location: location
     size: 'Standard_D2_v2'
 
