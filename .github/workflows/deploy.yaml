@@ -22,73 +22,73 @@ env:
   SETUP_SCRIPT: ${{ github.workspace }}/scripts/setup_jumpbox.tpl
 
 jobs:
-  # lint:
-  #   name: Lint Code
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash
-  #   steps:
-  #     - name: Harden Runner
-  #       uses: step-security/harden-runner@v2.0.0
-  #       with:
-  #         disable-sudo: true
-  #         egress-policy: audit
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.0.0
+        with:
+          disable-sudo: true
+          egress-policy: audit
 
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-  #     - name: Azure Login
-  #       uses: Azure/login@v1
-  #       with:
-  #         client-id: ${{ secrets.AZURE_CLIENT_ID }}
-  #         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-  #         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-  #     - name: Lint Code
-  #       working-directory: ${{ github.workspace }}/bicep
-  #       run: az bicep build --file azure.deploy.bicep
+      - name: Lint Code
+        working-directory: ${{ github.workspace }}/bicep
+        run: az bicep build --file azure.deploy.bicep
 
-  # validate:
-  #   name: Validate Template
-  #   needs: lint
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash
-  #   steps:
-  #     - name: Harden Runner
-  #       uses: step-security/harden-runner@v2.0.0
-  #       with:
-  #         disable-sudo: true
-  #         egress-policy: audit
+  validate:
+    name: Validate Template
+    needs: lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.0.0
+        with:
+          disable-sudo: true
+          egress-policy: audit
 
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-  #     - name: Azure Login
-  #       uses: Azure/login@v1
-  #       with:
-  #         client-id: ${{ secrets.AZURE_CLIENT_ID }}
-  #         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-  #         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-  #     - name: Validate template
-  #       working-directory: ${{ github.workspace }}/bicep
-  #       run: |
-  #         az deployment sub validate \
-  #           --name "$DEPLOYMENT_NAME" \
-  #           --location westeurope \
-  #           --template-file azure.deploy.bicep \
-  #           --parameters "azure.deploy.parameters.json" \
-  #                         subscription_id="$SUBSCRIPTION_ID" \
-  #                         mysql_admin_password="$ADMIN_PASSWORD" \
-  #                         jumpbox_admin_password="$ADMIN_PASSWORD" \
-  #                         github_runner_object_id="${{ secrets.AZURE_CLIENT_ID }}"
+      - name: Validate template
+        working-directory: ${{ github.workspace }}/bicep
+        run: |
+          az deployment sub validate \
+            --name "$DEPLOYMENT_NAME" \
+            --location westeurope \
+            --template-file azure.deploy.bicep \
+            --parameters "azure.deploy.parameters.json" \
+                          subscription_id="$SUBSCRIPTION_ID" \
+                          mysql_admin_password="$ADMIN_PASSWORD" \
+                          jumpbox_admin_password="$ADMIN_PASSWORD" \
+                          github_runner_object_id="${{ secrets.AZURE_CLIENT_ID }}"
 
   deploy:
     name: Deploy Infrastructure
-    # needs: validate
+    needs: validate
     runs-on: ubuntu-latest
     defaults:
       run:
