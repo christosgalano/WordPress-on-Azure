@@ -19,4 +19,4 @@ The purpose of this repository is to show how someone can host, monitor, and tes
 
 * [**Part 3: Deployment**](docs/Part-3-Deployment.md)
 
-* [**Part 4: Monitoring & Testing**](docs/Part-4-Monitoring-and-Testing)
+* [**Part 4: Monitoring & Testing**](docs/Part-4-Monitoring-and-Testing.md)
