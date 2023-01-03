@@ -37,6 +37,14 @@ param mysql_admin_password string
 @description('Object id of the github runner service principal')
 param github_runner_object_id string
 
+@description('Name of the secret that will store the mysql admin password')
+#disable-next-line secure-secrets-in-params
+param mysql_admin_password_secret_name string
+
+@description('Name of the secret that will store the jumpbox admin password')
+#disable-next-line secure-secrets-in-params
+param jumpbox_admin_password_secret_name string
+
 /// Variables ///
 
 var tags = union({
@@ -52,19 +60,21 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   tags: tags
 }
 
-// AzNames module deployment - this will generate all the names of the resources at deployment time.
-module aznames 'modules/aznames.bicep' = {
+// Azure Naming module deployment - this will generate all the names of the resources at deployment time.
+module naming 'modules/naming.bicep' = {
   scope: resourceGroup(rg.name)
-  name: 'aznames-deployment'
+  name: 'azure-naming-deployment'
   params: {
-    suffixes: [
+    location: location
+    suffix: [
       workload
       environment
-      location_abbreviation
+      '**location**' // azure-naming location/region placeholder, it will be replaced with its abbreviation
     ]
-    uniquifierLength: 5
-    uniquifier: rg.id
+    uniqueLength: 5
+    uniqueSeed: rg.id
     useDashes: true
+    useLowerCase: true
   }
 }
 
@@ -74,7 +84,7 @@ module main 'main.bicep' = {
   name: 'workload-deployment'
   params: {
     subscription_id: subscription_id
-    aznames: aznames.outputs.names
+    naming: naming.outputs.names
     rg_name: rg.name
 
     location: location
@@ -87,8 +97,10 @@ module main 'main.bicep' = {
 
     jumpbox_admin_username: jumpbox_admin_username
     jumpbox_admin_password: jumpbox_admin_password
+    jumpbox_admin_password_secret_name: jumpbox_admin_password_secret_name
 
     mysql_admin_username: mysql_admin_username
     mysql_admin_password: mysql_admin_password
+    mysql_admin_password_secret_name: mysql_admin_password_secret_name
   }
 }

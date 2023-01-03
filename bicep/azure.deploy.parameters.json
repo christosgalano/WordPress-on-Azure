@@ -1,30 +1,36 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "workload": {
-            "value": "woa"
-        },
-        "environment": {
-            "value": "dev"
-        },
-        "location": {
-            "value": "westeurope"
-        },
-        "location_abbreviation": {
-            "value": "weu"
-        },
-        "rg_tags": {
-            "value": {
-                "owner": "myself",
-                "costCenter": "personal wallet"
-            }
-        },
-        "jumpbox_admin_username": {
-            "value": "azureuser"
-        },
-        "mysql_admin_username": {
-            "value": "mysqladmin"
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "westeurope"
+    },
+    "location_abbreviation": {
+      "value": "weu"
+    },
+    "workload": {
+      "value": "woa"
+    },
+    "environment": {
+      "value": "dev"
+    },
+    "rg_tags": {
+      "value": {
+        "owner": "myself",
+        "costCenter": "personal wallet"
+      }
+    },
+    "jumpbox_admin_username": {
+      "value": "azureuser"
+    },
+    "mysql_admin_username": {
+      "value": "mysqladmin"
+    },
+    "mysql_admin_password_secret_name": {
+      "value": "mysql-admin-password"
+    },
+    "jumpbox_admin_password_secret_name": {
+      "value": "jumpbox-admin-password"
     }
+  }
 }
