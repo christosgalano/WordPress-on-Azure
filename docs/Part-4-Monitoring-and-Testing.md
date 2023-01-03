@@ -103,3 +103,5 @@ Well, this brings the WordPress-on-Azure series to an end. I hope you found the 
 * [**Part 2: Infrastructure as Code**](Part-2-IaC.md)
   
 * [**Part 3: Deployment**](Part-3-Deployment.md)
+
+**Related blog post:** <https://cloud-on-rails.com/2023/01/03/wordpress-on-azure-part-4-monitoring-and-testing/>
