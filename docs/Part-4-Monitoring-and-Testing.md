@@ -2,7 +2,7 @@
 
 Hello, fellow Azure enthusiasts! In today’s blog post, we set up monitoring and testing for our WordPress site.
 
-![monitoring-and-testing](../../images/monitoring_and_testing.jpg)
+![monitoring-and-testing](../images/monitoring_and_testing.jpg)
 
 ## Set up monitoring
 
@@ -10,17 +10,17 @@ Hello, fellow Azure enthusiasts! In today’s blog post, we set up monitoring an
 
 * Go to the Application Insights resource and copy its Instrumentation Key
 
-![get-instrumentation-key](../../images/app-insights.png)
+![get-instrumentation-key](../images/app-insights.png)
 
 * Login to WordPress at <https://{{app-service-name}}.azurewebsites.net/login>
 
 * Go to Plugins, install and activate the **Application Insights** plugin
 
-![install-plugin](../../images/install-plugin.png)
+![install-plugin](../images/install-plugin.png)
 
 * Go to **Settings -> Application Insights** and set the Instrumentation Key
 
-![set-instrumentation-key](../../images/set-instrumentation-key.png)
+![set-instrumentation-key](../images/set-instrumentation-key.png)
 
 * Wait 5 minutes for the integration to take place
 
@@ -34,7 +34,7 @@ The ***web_test*** module was included in the ***main*** deployment template. Th
 
 * Click on the test and enable it
 
-![enable-availability-test](../../images/enable-availability-test.png)
+![enable-availability-test](../images/enable-availability-test.png)
 
 ### Perform a Load Test
 
@@ -50,7 +50,7 @@ The ***web_test*** module was included in the ***main*** deployment template. Th
 
 * Create and run the load test
 
-![load-test-results](../../images/load-test-results.png)
+![load-test-results](../images/load-test-results.png)
 
 ## Teardown the infrastructure using the *destroy.yaml* workflow
 
@@ -72,7 +72,7 @@ The ***web_test*** module was included in the ***main*** deployment template. Th
 
 * If at least one approver responds negatively, the workflow fails
 
-![approve-teardown](../../images/approve-teardown.png)
+![approve-teardown](../images/approve-teardown.png)
 
 ### Destroy the infrastructure
 
