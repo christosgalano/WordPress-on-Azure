@@ -104,7 +104,7 @@ So we deployed our infrastructure and completed the essential post-configuration
 
 **Next part:**
 
-* [**Part 4: Monitoring & Testing**](Part-4-Monitoring-and-Testing)
+* [**Part 4: Monitoring & Testing**](Part-4-Monitoring-and-Testing.md)
 
 **Previous parts:**
 

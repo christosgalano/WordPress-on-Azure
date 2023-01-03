@@ -12,6 +12,6 @@ Hello, fellow Azure enthusiasts! I suppose more or less all of us have heard abo
 
 * [**Part 3: Deployment**](Part-3-Deployment.md)
 
-* [**Part 4: Monitoring & Testing**](Part-4-Monitoring-and-Testing)
+* [**Part 4: Monitoring & Testing**](Part-4-Monitoring-and-Testing.md)
 
 **Related blog post:** <https://cloud-on-rails.com/2022/11/07/wordpress-on-azure-part-0-intro/>
