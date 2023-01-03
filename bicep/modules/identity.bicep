@@ -17,6 +17,6 @@ resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-p
 
 // Outputs
 
-output identity_resource_id string = identity.id
-output identity_client_id string = identity.properties.clientId
-output identity_principal_id string = identity.properties.principalId
+output resource_id string = identity.id
+output client_id string = identity.properties.clientId
+output principal_id string = identity.properties.principalId
