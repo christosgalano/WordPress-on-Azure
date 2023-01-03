@@ -7,7 +7,7 @@
 
 The purpose of this repository is to show how someone can host, monitor, and test a WordPress site by utilizing Azure, Bicep, and GitHub.
 
-**Blog**: <https://cloud-on-rails.com/>
+**Blog series**: <https://cloud-on-rails.com/2022/11/07/wordpress-on-azure-part-0-intro/>
 
 ## Guideline (also available in Wiki)
 
