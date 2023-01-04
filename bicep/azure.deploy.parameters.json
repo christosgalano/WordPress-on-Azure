@@ -14,12 +14,6 @@
     "environment": {
       "value": "dev"
     },
-    "rg_tags": {
-      "value": {
-        "owner": "myself",
-        "costCenter": "personal wallet"
-      }
-    },
     "jumpbox_admin_username": {
       "value": "azureuser"
     },
@@ -31,6 +25,12 @@
     },
     "jumpbox_admin_password_secret_name": {
       "value": "jumpbox-admin-password"
+    },
+    "rg_tags": {
+      "value": {
+        "owner": "myself",
+        "cost-center": "personal wallet"
+      }
     }
   }
 }
