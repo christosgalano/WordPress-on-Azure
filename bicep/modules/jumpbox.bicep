@@ -112,7 +112,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       }
       allowExtensionOperations: true
 
-      customData: loadFileAsBase64('../../scripts/setup_jumpbox.tpl')
+      customData: loadFileAsBase64('../../.github/scripts/setup_jumpbox.tpl')
     }
 
     diagnosticsProfile: {
