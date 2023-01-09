@@ -1,0 +1,13 @@
+cd ../../bicep
+
+# The build commands will also lint the bicep file and catch and syntax errors
+az bicep build --file azure.deploy.bicep
+
+# Validate whether a template is valid at subscription scope
+az deployment sub validate --name "woa-deployment" --location westeurope --template-file azure.deploy.bicep --parameters azure.deploy.parameters.json
+
+# Execute a deployment What-If operation at subscription scope
+az deployment sub what-if --name "woa-deployment" --location westeurope --template-file azure.deploy.bicep --parameters azure.deploy.parameters.json
+
+# Start a deployment at subscription scope
+az deployment sub create --name "woa-deployment" --location westeurope --template-file azure.deploy.bicep --parameters azure.deploy.parameters.json
