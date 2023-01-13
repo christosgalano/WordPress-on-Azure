@@ -1,0 +1,18 @@
+name: checkov-scan
+run-name: ${{ github.workflow }}
+on:
+  workflow_dispatch:
+
+jobs:
+  call-checkov-scan-workflow:
+    permissions:
+      # required for all workflows
+      security-events: write
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
+    uses: christosgalano/Workflow-Templates/.github/workflows/checkov_scan.yaml@main
+    with:
+      template_dir: bicep
+      template_prefix: azure.deploy
+      enable_harder_runner: false
