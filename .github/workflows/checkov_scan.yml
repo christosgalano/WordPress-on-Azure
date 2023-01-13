@@ -2,10 +2,11 @@ name: checkov-scan
 run-name: ${{ github.workflow }}
 on:
   workflow_dispatch:
-    code_scanning_enabled:
-      description: "Specify whether to integrate with code scanning"
-      required: true
-      type: boolean
+    inputs:
+      code_scanning_enabled:
+        description: "Specify whether to integrate with code scanning"
+        required: true
+        type: boolean
 
 jobs:
   call-checkov-scan-workflow:
