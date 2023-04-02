@@ -37,7 +37,7 @@ param retry_enabled bool
 param test_description string
 
 @description('When set, validation will ignore the status code')
-param ignore_https_status_code bool
+param ignore_http_status_code bool
 
 @description('ID of the subscription where the Application Insights resource resides')
 param subscription_id string
@@ -78,7 +78,7 @@ resource web_test 'Microsoft.Insights/webtests@2022-06-15' = {
     }
     ValidationRules: {
       ExpectedHttpStatusCode: 200
-      IgnoreHttpsStatusCode: ignore_https_status_code
+      IgnoreHttpStatusCode: ignore_http_status_code
       SSLCheck: ssl_check
     }
   }

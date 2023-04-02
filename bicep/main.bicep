@@ -306,7 +306,7 @@ module web_test 'modules/web_test.bicep' = {
 
     enabled: false
     ssl_check: true
-    ignore_https_status_code: false
+    ignore_http_status_code: false
 
     location_ids: [
       'us-fl-mia-edge' // Central US
