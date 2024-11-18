@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2.0.0
+        uses: step-security/harden-runner@v2.10.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -50,7 +50,7 @@ jobs:
         shell: bash
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2.0.0
+        uses: step-security/harden-runner@v2.10.2
         with:
           disable-sudo: true
           egress-policy: audit
